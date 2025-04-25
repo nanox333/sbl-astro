@@ -1,0 +1,419 @@
+/* --- Variables --- */
+:root {
+    --primary-color: #283593; /* Slightly lighter Indigo */
+    --primary-darker: #1a237e; /* Original Dark Blue */
+    --secondary-color: #5c6bc0; /* Lighter Indigo for accents */
+    --light-bg: #f5f5f7; /* Very light grey */
+    --light-blue-bg: #e8eaf6; /* Light Indigo */
+    --text-dark: #333;
+    --text-light: #555;
+    --text-headings: var(--primary-darker);
+    --white: #fff;
+    --border-light: #e0e0e0;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.12);
+    --font-primary: 'Lato', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+/* Basic Reset & Defaults */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.7;
+    color: var(--text-dark);
+    background-color: var(--white); /* White background */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-secondary);
+    margin-bottom: 0.8em;
+    color: var(--text-headings);
+    font-weight: 600;
+}
+
+h1 { font-size: 2.8em; line-height: 1.2; }
+h2 {
+    font-size: 2.2em;
+    padding-top: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1.2em;
+    text-align: center;
+    position: relative;
+}
+/* Underline effect for H2 */
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 0.4em auto 0;
+    border-radius: 2px;
+}
+
+h3 { font-size: 1.5em; color: var(--primary-color); margin-bottom: 0.5em;}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+    color: var(--primary-darker);
+    text-decoration: none; /* Remove default underline */
+}
+
+ul {
+    list-style: none;
+}
+
+/* Helper Classes */
+.section-padding {
+    padding: 5rem 0;
+}
+.alt-bg {
+    background-color: var(--light-bg);
+}
+
+
+/* ==================
+   Header Styles
+   ================== */
+
+header {
+    background-color: var(--white);
+    color: var(--primary-darker);
+    padding: 1rem 0; /* Keep original padding */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px var(--shadow-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* --- This is the main flex container --- */
+header .header-content {
+    display: flex;              /* Use flexbox */
+    justify-content: space-between; /* Logo left, rest right */
+    align-items: center;        /* Center items vertically */
+    width: 100%;                /* Use full width of container */
+    /* flex-wrap: nowrap; */    /* Let mobile styles handle wrapping below */
+}
+
+header .header-content .logo {
+    font-family: var(--font-secondary);
+    font-size: 1.6em;         /* Original size */
+    font-weight: bold;        /* Original weight */
+    color: var(--primary-darker); /* Original color */
+    text-decoration: none;    /* Ensure no underline */
+    white-space: nowrap;      /* Prevent text wrapping */
+    flex-shrink: 0;           /* Prevent shrinking */
+}
+header .header-content .logo:hover {
+    color: var(--primary-color); /* Original hover */
+}
+
+header .header-content nav ul {
+    display: flex;              /* Align LIs horizontally */
+    align-items: center;        /* Align LIs vertically */
+    list-style: none;
+    margin: 0;                /* Remove default UL margin */
+    padding: 0;               /* Remove default UL padding */
+}
+
+header .header-content nav ul li {
+    margin: 0;                /* Remove default LI margin */
+    margin-left: 25px;        /* Space between nav items */
+}
+/* Ensure first item has no extra left margin */
+header .header-content nav ul li:first-child {
+     margin-left: 0;
+ }
+
+header .header-content nav ul li a {
+    color: var(--text-dark);
+    padding: 8px 12px;        /* Original padding */
+    border-radius: 4px;       /* Original radius */
+    font-weight: 600;         /* Original weight */
+    transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+    position: relative;         /* For underline effect */
+    text-decoration: none;    /* Ensure no underline */
+}
+
+header .header-content nav ul li a::after { /* Underline hover effect */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 4px;
+    right: 0;
+    background: var(--secondary-color);
+    transition: width .3s ease;
+    -webkit-transition: width .3s ease;
+}
+
+header .header-content nav ul li a:hover::after {
+    width: 100%;
+    left: 0;
+    background-color: var(--secondary-color);
+}
+header .header-content nav ul li a:hover {
+    color: var(--primary-color); /* Original hover */
+}
+
+header .header-content .lang-switch {
+    margin-left: 25px; /* Space after nav */
+    flex-shrink: 0;    /* Prevent shrinking */
+}
+
+header .header-content .mobile-menu-toggle {
+    display: none; /* Hide on desktop */
+     /* Keep your other mobile toggle styles */
+     background: none;
+     border: none;
+     color: var(--primary-darker);
+     font-size: 2em;
+     cursor: pointer;
+}
+
+
+/* Language Switcher (Keep original styles) */
+.lang-switch button {
+    background: none;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 6px 12px;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 20px; /* Rounded pill shape */
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.lang-switch button.active {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+.lang-switch button:not(.active):hover {
+    background-color: var(--light-blue-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Mobile Menu Toggle (Keep original styles) */
+.mobile-menu-toggle {
+    display: none; /* This rule might be duplicated, but ensures it's hidden */
+    background: none;
+    border: none;
+    color: var(--primary-darker);
+    font-size: 2em;
+    cursor: pointer;
+}
+
+
+/* ==================
+   Other Sections (Keep Original Styles)
+   ================== */
+
+/* Hero Section */
+.hero {
+    background-color: var(--light-blue-bg);
+    padding: 5rem 0;
+    text-align: center;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-content { max-width: 800px; }
+.hero .headshot {
+    width: 200px; height: 200px; border-radius: 50%; object-fit: cover;
+    margin-bottom: 2rem; border: 6px solid var(--white); box-shadow: 0 10px 25px var(--shadow-medium);
+}
+.hero h1 { margin-bottom: 0.5em; color: var(--primary-darker); font-weight: 700; }
+.hero .subtitle { font-size: 1.2em; color: var(--text-light); margin: 0 auto 2em auto; max-width: 650px; }
+
+/* Buttons */
+.button {
+    display: inline-block; background-color: var(--primary-color); color: var(--white); padding: 14px 30px;
+    border-radius: 30px; text-decoration: none; font-weight: bold; font-family: var(--font-secondary);
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease;
+    margin: 0.5em; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(40, 53, 147, 0.3);
+}
+.button:hover { background-color: var(--primary-darker); transform: translateY(-3px); box-shadow: 0 6px 15px rgba(40, 53, 147, 0.4); }
+.button.secondary { background-color: var(--white); color: var(--primary-color); border: 2px solid var(--primary-color); box-shadow: none; }
+.button.secondary:hover { background-color: var(--light-blue-bg); color: var(--primary-darker); border-color: var(--primary-darker); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
+
+/* About Section */
+.about p { margin-bottom: 1.2em; color: var(--text-light); font-size: 1.05em; }
+.skills { list-style: none; padding: 0; margin-top: 2em; }
+.skills li {
+    display: inline-block; background-color: var(--light-blue-bg); color: var(--primary-darker); padding: 8px 18px;
+    margin: 6px 6px 6px 0; border-radius: 20px; font-size: 0.95em; font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.skills li:hover { transform: translateY(-2px); box-shadow: 0 3px 8px var(--shadow-light); }
+
+/* Experience & Education (Timeline) */
+.timeline { position: relative; margin-top: 3em; }
+.timeline::before { content: ''; position: absolute; left: 10px; top: 15px; bottom: 15px; width: 3px; background-color: var(--light-blue-bg); border-radius: 2px; }
+.timeline-item { margin-bottom: 2em; position: relative; padding-left: 45px; }
+.timeline-item.card {
+    background: var(--white); padding: 1.8rem 2rem; border-radius: 8px; box-shadow: 0 4px 15px var(--shadow-light);
+    border: 1px solid var(--border-light); transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+.timeline-item.card:hover { box-shadow: 0 6px 20px var(--shadow-medium); transform: translateY(-3px); }
+.timeline-item::before { content: ''; position: absolute; left: 0px; top: 30px; width: 21px; height: 21px; background-color: var(--secondary-color); border-radius: 50%; border: 4px solid var(--light-bg); z-index: 1; }
+.timeline-item h3 { margin-bottom: 0.4em; }
+.timeline-item .company, .timeline-item .institution { font-weight: bold; color: var(--text-light); margin-bottom: 0.3em; font-size: 1.05em; }
+.timeline-item .dates { font-size: 0.9em; color: #777; margin-bottom: 0.8em; font-weight: 600; }
+.timeline-item .details { font-size: 0.95em; color: var(--text-light); margin-bottom: 0.8em; font-style: italic; }
+.timeline-item ul { list-style: none; padding-left: 0; margin-top: 0.8em; color: var(--text-light); }
+.timeline-item ul li { margin-bottom: 0.4em; padding-left: 1.2em; position: relative; }
+.timeline-item ul li::before { content: '›'; position: absolute; left: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.2em; line-height: 1; }
+
+/* Language section in Education */
+#education h3[data-lang-key="languagesTitle"] { margin-top: 3em; text-align: left; font-size: 1.3em; }
+#education h3[data-lang-key="languagesTitle"]::after { display: none; }
+.language-info { margin-top: 1em; padding: 1.5em; background-color: var(--white); border-radius: 8px; box-shadow: 0 3px 10px var(--shadow-light); border: 1px solid var(--border-light); }
+.language-info p { margin-bottom: 0.5em; font-size: 1.05em; }
+.language-info strong { color: var(--primary-darker); }
+
+/* Contact Section */
+.contact { text-align: center; }
+.contact .container { max-width: 700px; }
+.contact-intro { font-size: 1.1em; color: var(--text-light); margin-bottom: 2em; }
+.contact-info p { margin-bottom: 1em; font-size: 1.15em; }
+.contact-info strong { color: var(--primary-darker); margin-right: 8px; }
+.contact-info a { font-weight: 600; word-break: break-word; }
+.contact-info a:hover { text-decoration: underline; }
+
+/* Footer */
+footer { background-color: var(--primary-darker); color: #ccc; text-align: center; padding: 2rem 0; margin-top: 3rem; font-size: 0.9em; }
+footer p { margin: 0; color: #aab6fe; }
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.4em; }
+    .section-padding { padding: 4rem 0; }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.1em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.3em; }
+    .section-padding { padding: 3rem 0; }
+
+    /* Allow header content to wrap on mobile */
+    header .header-content {
+        flex-wrap: wrap;
+        position: relative; /* Needed for absolute positioning of nav */
+    }
+
+    header nav {
+        display: none; /* Hide nav by default */
+        order: 3; /* Make nav appear last in flex order */
+        width: 100%;
+        background-color: var(--white);
+        position: absolute; /* Position it below the header */
+        top: 100%; /* Start right below the header */
+        left: 0;
+        box-shadow: 0 5px 10px var(--shadow-light);
+        border-top: 1px solid var(--border-light);
+        padding: 10px 0;
+    }
+
+    header nav.active { /* Style for when mobile menu is open */
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column; /* Stack nav items vertically */
+        align-items: center;
+        width: 100%;
+    }
+
+    header nav ul li {
+        margin: 12px 0; /* Vertical space, remove horizontal margin */
+    }
+     header nav ul li a::after { display: none; } /* Hide underline effect on mobile */
+
+    .lang-switch {
+        order: 1; /* Position lang switch before toggle */
+        margin-left: 0; /* Remove left margin */
+        margin-right: 15px; /* Space before toggle */
+    }
+     .lang-switch button { padding: 5px 10px; font-size: 0.85em;}
+
+    .mobile-menu-toggle {
+        display: block; /* Show toggle button */
+        order: 2; /* Position it after the lang switch */
+    }
+    header .logo {
+        order: 0; /* Ensure logo is visually first */
+        /* Add margin-bottom if needed when wrapped */
+        margin-bottom: 10px; /* Space below logo when wrapped */
+        width: calc(100% - 100px); /* Adjust width to prevent overlap with buttons, roughly */
+     }
+
+    .hero { min-height: auto; padding: 4rem 0; }
+    .hero .headshot { width: 150px; height: 150px; }
+    .hero-buttons { display: flex; flex-direction: column; align-items: center; }
+    .hero-buttons .button { width: 80%; max-width: 300px; margin: 0.6em 0;}
+
+    /* Adjust timeline */
+    .timeline::before { left: 8px; width: 2px;}
+    .timeline-item { padding-left: 35px; }
+    .timeline-item::before { left: -2px; width: 18px; height: 18px; top: 28px; border-width: 3px;}
+    .timeline-item.card { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 1.9em; }
+    h2 { font-size: 1.6em; }
+    h3 { font-size: 1.2em; }
+    .section-padding { padding: 2.5rem 0; }
+    .container { padding: 0 15px; }
+
+    header .logo {
+        width: calc(100% - 80px); /* Further adjust logo width */
+        font-size: 1.4em; /* Slightly smaller logo */
+    }
+
+    .hero { padding: 3rem 0; }
+    .hero .headshot { width: 120px; height: 120px; }
+    .hero .subtitle { font-size: 1.1em; }
+    .button { padding: 12px 25px; font-size: 0.95em;}
+
+    .skills li { font-size: 0.9em; padding: 6px 14px; }
+
+    .timeline-item { padding-left: 30px; }
+    .timeline-item::before { left: -3px; width: 16px; height: 16px; top: 26px;}
+    .timeline-item.card { padding: 1.2rem; }
+    .timeline-item ul li { padding-left: 1em;}
+     .timeline-item ul li::before { font-size: 1.1em;}
+
+    .contact-info p { font-size: 1.05em; }
+}
