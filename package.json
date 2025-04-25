@@ -10,5 +10,10 @@
   },
   "dependencies": {
     "astro": "^5.7.5"
+  },
+  "devDependencies": {
+    "@stackbit/cms-git": "^1.0.35",
+    "@stackbit/types": "^2.1.14",
+    "@types/node": "^22.15.2"
   }
 }
