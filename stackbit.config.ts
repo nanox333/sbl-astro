@@ -69,11 +69,11 @@ export default defineStackbitConfig({
             // *** Check assetsConfig based on Astro guide example ***
             assetsConfig: {
                 referenceType: 'static',
-                staticDir: 'public', // Astro uses 'public' for static assets
-                publicPath: '/',    // Assets are served from the root
-                // uploadDir needs careful thought - where do you want CMS uploads to go?
-                // Example: place in 'public/uploads' and reference as '/uploads/image.jpg'
-                 uploadDir: 'uploads', // Put uploaded assets in 'public/uploads'
+                staticDir: 'public',     // Astro serves static assets from 'public'
+                publicPath: '/',        // These assets are served from the site root URL
+                // uploadDir: 'uploads' // Optional: Subdirectory within 'public' for uploads
+                                        // If used, new image paths in JSON will be '/uploads/...'
+                                        // If omitted, uploads go to root of 'public'
             }
         })
     ],
