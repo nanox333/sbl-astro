@@ -1,182 +1,181 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const siteData = window.portfolioData;
+
+    if (!siteData) {
+        console.error("CRITICAL: portfolioData not found on window!");
+        return;
+    }
 
     // --- Elements ---
     const langButtons = document.querySelectorAll('.lang-switch button');
-    const translatableElements = document.querySelectorAll('[data-lang-key]');
     const htmlElement = document.documentElement;
     const cvDownloadLink = document.getElementById('cv-download-link');
     const currentYearSpan = document.getElementById('current-year');
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('header nav');
 
-    // --- Functions ---
-    const updateText = (lang) => {
-        // --- Access global data directly INSIDE the function ---
-        const siteData = window.portfolioData;
-        if (!siteData) {
-             console.error("ERROR: portfolioData not found on window when trying to update text!"); // Debug log
-             return; // Exit if data isn't available
-        }
-
-        // --- Update page lang and title ---
-        htmlElement.setAttribute('lang', lang);
-        // Use try-catch for potential errors accessing nested data
+    // --- Helper to get nested values safely ---
+    const getNestedValue = (obj, path, defaultValue = '') => {
         try {
-            document.title = siteData[`title_${lang}`] || siteData.title_sv || 'Portfolio'; // Update title tag with fallback
+            const value = path.split('.').reduce((o, i) => (o && typeof o === 'object' ? o[i] : undefined), obj);
+            return value !== undefined && value !== null ? value : defaultValue;
         } catch (e) {
-            console.error("Error updating document title:", e);
+            return defaultValue;
+        }
+    };
+
+    // --- Main Text Update Function ---
+    const updateText = (lang) => {
+        if (!siteData.translations || !siteData.translations[lang]) {
+            console.error(`[updateText] Translations for language '${lang}' not found. Available translations:`, siteData.translations);
+            return;
+        }
+        const t = siteData.translations[lang]; // Current language translations
+
+        // Update page lang and title
+        htmlElement.setAttribute('lang', lang);
+        document.title = t.title || 'Portfolio';
+
+        // Update CV download link
+        if (cvDownloadLink && siteData.cv && siteData.cv[lang]) {
+            cvDownloadLink.href = siteData.cv[lang];
         }
 
+        // --- Update simple text content for specific elements ---
+        // Hero Section
+        const heroTitle = document.querySelector('.hero h1');
+        if (heroTitle) heroTitle.textContent = t.hero_section?.title || '';
+        const heroSubtitle = document.querySelector('.hero .subtitle');
+        if (heroSubtitle) heroSubtitle.textContent = t.hero_section?.subtitle || '';
+        const heroContactBtn = document.querySelector('.hero-buttons a[href="#contact"]');
+        if (heroContactBtn) heroContactBtn.textContent = t.hero_section?.contact_btn || '';
+        const heroCvBtn = document.querySelector('.hero-buttons a#cv-download-link');
+        if (heroCvBtn) heroCvBtn.textContent = t.hero_section?.cv_btn || '';
 
-        // --- Key Map (remains the same) ---
-        const keyMap = {
-            // pageTitle: Handled above
-            navHome: `hero_section.title_${lang}`, // Example, adjust if needed
-            navAbout: `about_section.title_${lang}`,
-            navExperience: `experience_section.title_${lang}`,
-            navEducation: `education_section.title_${lang}`,
-            navContact: `contact_section.title_${lang}`,
-            heroTitle: `hero_section.title_${lang}`,
-            heroSubtitle: `hero_section.subtitle_${lang}`,
-            heroContactBtn: `hero_section.contact_btn_${lang}`,
-            heroCvBtn: `hero_section.cv_btn_${lang}`,
-            aboutTitle: `about_section.title_${lang}`,
-            aboutText1: `about_section.text1_${lang}`,
-            aboutText2: `about_section.text2_${lang}`,
-            skillsTitle: `about_section.skills_title_${lang}`,
-            experienceTitle: `experience_section.title_${lang}`,
-            educationTitle: `education_section.title_${lang}`,
-            languagesTitle: `education_section.lang_title_${lang}`,
-            contactTitle: `contact_section.title_${lang}`,
-            contactIntro: `contact_section.intro_${lang}`,
-            contactEmailLabel: `contact_section.email_label_${lang}`,
-            contactPhoneLabel: `contact_section.phone_label_${lang}`,
-            contactLinkedInLabel: `contact_section.linkedin_label_${lang}`,
-            contactLinkedInLinkText: `contact_section.linkedin_link_text_${lang}`,
-            contactLocationLabel: `contact_section.location_label_${lang}`,
-            contactLocationText: `contact_section.location_text_${lang}`,
-            footerRights: `footer_section.rights_${lang}`
-        };
+        // About Section
+        const aboutTitle = document.querySelector('#about h2');
+        if (aboutTitle) aboutTitle.textContent = t.about_section?.title || '';
+        const aboutText1 = document.querySelector('#about p:nth-of-type(1)'); // More specific selector if needed
+        if (aboutText1) aboutText1.textContent = t.about_section?.text1 || '';
+        const aboutText2 = document.querySelector('#about p:nth-of-type(2)'); // More specific selector if needed
+        if (aboutText2) aboutText2.textContent = t.about_section?.text2 || '';
+        const skillsTitle = document.querySelector('#about h3');
+        if (skillsTitle) skillsTitle.textContent = t.about_section?.skills_title || '';
 
-        // --- Update Simple Text Elements ---
-        translatableElements.forEach(el => {
-            const key = el.getAttribute('data-lang-key');
-            const dataPath = keyMap[key];
+        // Experience Section
+        const experienceTitle = document.querySelector('#experience h2');
+        if (experienceTitle) experienceTitle.textContent = t.experience_section?.title || '';
 
-            if (dataPath) {
-                try {
-                    // Helper function for safe nested access
-                    const getValue = (path, obj) => path.split('.').reduce((o, i) => (o && typeof o === 'object' ? o[i] : undefined), obj);
-                    const value = getValue(dataPath, siteData);
+        // Education Section
+        const educationTitle = document.querySelector('#education h2');
+        if (educationTitle) educationTitle.textContent = t.education_section?.title || '';
+        const languagesTitle = document.querySelector('#education h3[data-lang-key="languagesTitle"], #education .language-info ~ h3'); // Fallback for structure
+        if (languagesTitle && t.education_section?.lang_title) languagesTitle.textContent = t.education_section.lang_title;
 
-                    if (value !== undefined && value !== null) {
-                        el.innerHTML = value; // Use innerHTML carefully, consider textContent if no HTML is needed
-                    } else {
-                        // Don't warn for keys that are handled specifically below (like lists)
-                        if (!['skills', 'jobs', 'educations', 'languages'].some(listKey => dataPath.includes(listKey))) {
-                           // console.warn(`Data value is null or undefined for key: ${key} (path: ${dataPath})`);
-                           el.innerHTML = ''; // Clear the element if data is missing/null
-                        }
-                    }
-                } catch (e) {
-                    console.error(`Error accessing data for key: ${key} (path: ${dataPath})`, e);
-                }
-            }
-        });
+        // Contact Section
+        const contactTitle = document.querySelector('#contact h2');
+        if (contactTitle) contactTitle.textContent = t.contact_section?.title || '';
+        const contactIntro = document.querySelector('#contact .contact-intro');
+        if (contactIntro) contactIntro.textContent = t.contact_section?.intro || '';
+        const contactEmailLabel = document.querySelector('.contact-info p:nth-child(1) strong');
+        if (contactEmailLabel) contactEmailLabel.textContent = t.contact_section?.email_label || '';
+        const contactPhoneLabel = document.querySelector('.contact-info p:nth-child(2) strong');
+        if (contactPhoneLabel) contactPhoneLabel.textContent = t.contact_section?.phone_label || '';
+        const contactLinkedInLabel = document.querySelector('.contact-info p:nth-child(3) strong');
+        if (contactLinkedInLabel) contactLinkedInLabel.textContent = t.contact_section?.linkedin_label || '';
+        const contactLinkedInLink = document.querySelector('.contact-info p:nth-child(3) a');
+        if (contactLinkedInLink) contactLinkedInLink.textContent = t.contact_section?.linkedin_link_text || '';
+        const contactLocationLabel = document.querySelector('.contact-info p:nth-child(4) strong');
+        if (contactLocationLabel) contactLocationLabel.textContent = t.contact_section?.location_label || '';
+        const contactLocationText = document.querySelector('.contact-info p:nth-child(4) span');
+        if (contactLocationText) contactLocationText.textContent = t.contact_section?.location_text || '';
+
+        // Footer (rights text)
+        const footerRights = document.querySelector('footer span[data-lang-key="footerRights"], footer p span:last-of-type'); // Robust selector
+        if (footerRights) footerRights.textContent = t.footer_section?.rights || '';
+        const footerNameInFooter = document.querySelector('footer p span:nth-of-type(2)'); // Assuming structure © YYYY NAME. Rights.
+        if (footerNameInFooter && t.footer_section?.name) footerNameInFooter.textContent = t.footer_section.name;
+
+        // --- Update Navigation Links (Layout.astro server-renders these, but client-side update ensures consistency if needed)
+        const navAbout = document.querySelector('header nav a[href="#about"]');
+        if (navAbout && t.about_section?.title) navAbout.textContent = t.about_section.title;
+        const navExperience = document.querySelector('header nav a[href="#experience"]');
+        if (navExperience && t.experience_section?.title) navExperience.textContent = t.experience_section.title;
+        const navEducation = document.querySelector('header nav a[href="#education"]');
+        if (navEducation && t.education_section?.title) navEducation.textContent = t.education_section.title;
+        const navContact = document.querySelector('header nav a[href="#contact"]');
+        if (navContact && t.contact_section?.title) navContact.textContent = t.contact_section.title;
 
 
         // --- Update Lists (Skills, Experience, Education, Languages) ---
-        try {
-            // Skills
-            const skillsList = document.querySelector('.skills');
-            if (skillsList && siteData.about_section?.skills) {
-                skillsList.innerHTML = ''; // Clear existing
-                siteData.about_section.skills.forEach((item, index) => {
-                    const li = document.createElement('li');
-                    li.setAttribute('data-lang-key', `skill_${index + 1}`);
-                    li.textContent = item[`skill_${lang}`] || ''; // Use textContent for safety
-                    skillsList.appendChild(li);
-                });
-            }
-
-            // Experience
-            const expItems = document.querySelectorAll('#experience .timeline-item');
-            if (siteData.experience_section?.jobs && expItems.length === siteData.experience_section.jobs.length) {
-                siteData.experience_section.jobs.forEach((job, index) => {
-                    const itemEl = expItems[index];
-                    itemEl.querySelector('h3').textContent = job[`title_${lang}`] || '';
-                    itemEl.querySelector('.dates').textContent = job[`dates_${lang}`] || '';
-                    const descList = itemEl.querySelector('ul');
-                    descList.innerHTML = ''; // Clear
-                    const descriptions = job[`desc_${lang}`];
-                    if (Array.isArray(descriptions)) {
-                        descriptions.forEach(descItem => {
-                            const li = document.createElement('li');
-                            li.textContent = descItem || '';
-                            descList.appendChild(li);
-                        });
-                    }
-                });
-            }
-
-            // Education
-            const eduItems = document.querySelectorAll('#education .timeline-item');
-            if (siteData.education_section?.educations && eduItems.length === siteData.education_section.educations.length) {
-                siteData.education_section.educations.forEach((edu, index) => {
-                    const itemEl = eduItems[index];
-                    itemEl.querySelector('h3').textContent = edu[`title_${lang}`] || '';
-                    itemEl.querySelector('.dates').textContent = edu[`dates_${lang}`] || '';
-                    const detailsEl = itemEl.querySelector('.details');
-                    const detailsText = edu[`details_${lang}`];
-                    if (detailsEl && detailsText) {
-                        detailsEl.textContent = detailsText;
-                        detailsEl.style.display = 'block';
-                    } else if (detailsEl) {
-                        detailsEl.textContent = ''; // Clear content
-                        detailsEl.style.display = 'none';
-                    }
-                });
-            }
-
-            // Languages
-            const langInfoDiv = document.querySelector('.language-info');
-            if (langInfoDiv && siteData.education_section?.languages) {
-                langInfoDiv.innerHTML = ''; // Clear
-                siteData.education_section.languages.forEach((language, index) => {
-                    const p = document.createElement('p');
-                    const name = language[`name_${lang}`] || '';
-                    const level = language[`level_${lang}`] || '';
-                    // Use textContent to prevent potential injection issues if data ever changes
-                    const strong = document.createElement('strong');
-                    strong.setAttribute('data-lang-key', `lang${index + 1}Name`);
-                    strong.textContent = `${name}:`;
-                    const span = document.createElement('span');
-                    span.setAttribute('data-lang-key', `lang${index + 1}Level`);
-                    span.textContent = ` ${level}`; // Add space
-                    p.appendChild(strong);
-                    p.appendChild(span);
-                    langInfoDiv.appendChild(p);
-                });
-            }
-        } catch (e) {
-            console.error("Error updating list content:", e);
+        // Skills
+        const skillsList = document.querySelector('.skills');
+        if (skillsList && t.about_section?.skills) {
+            skillsList.innerHTML = ''; // Clear existing
+            t.about_section.skills.forEach((skillText) => {
+                const li = document.createElement('li');
+                li.textContent = skillText || '';
+                skillsList.appendChild(li);
+            });
         }
 
-
-        // --- Update Specific Attributes ---
-        // Update CV download link
-        try {
-            if (cvDownloadLink && siteData[`cv_${lang}`]) {
-                cvDownloadLink.href = siteData[`cv_${lang}`];
-            } else if (cvDownloadLink) {
-                cvDownloadLink.href = "#"; // Fallback
-            }
-        } catch (e) {
-            console.error("Error updating CV link:", e);
+        // Experience
+        const expSection = document.querySelector('#experience .timeline');
+        if (expSection && t.experience_section?.jobs) {
+            expSection.innerHTML = ''; // Clear existing timeline items
+            t.experience_section.jobs.forEach((job) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'timeline-item card';
+                itemEl.innerHTML = `
+                    <h3>${job.title || ''}</h3>
+                    <p class="company">${job.company || ''}</p>
+                    <p class="dates">${job.dates || ''}</p>
+                    <ul>
+                        ${(job.desc || []).map(d => `<li>${d || ''}</li>`).join('')}
+                    </ul>
+                `;
+                expSection.appendChild(itemEl);
+            });
         }
 
+        // Education
+        const eduSection = document.querySelector('#education .timeline');
+        if (eduSection && t.education_section?.educations) {
+            eduSection.innerHTML = ''; // Clear existing timeline items
+            t.education_section.educations.forEach((edu) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'timeline-item card';
+                let detailsHTML = '';
+                if (edu.details) {
+                    detailsHTML = `<p class="details">${edu.details}</p>`;
+                }
+                itemEl.innerHTML = `
+                    <h3>${edu.title || ''}</h3>
+                    <p class="institution">${edu.institution || ''}</p>
+                    <p class="dates">${edu.dates || ''}</p>
+                    ${detailsHTML}
+                `;
+                eduSection.appendChild(itemEl);
+            });
+        }
 
-        // --- Update active language button style ---
+        // Languages List in Education Section
+        const langInfoDiv = document.querySelector('#education .language-info');
+        if (langInfoDiv && t.education_section?.languages) {
+            langInfoDiv.innerHTML = ''; // Clear
+            t.education_section.languages.forEach((language) => {
+                const p = document.createElement('p');
+                const strong = document.createElement('strong');
+                strong.textContent = `${language.name || ''}:`;
+                const span = document.createElement('span');
+                span.textContent = ` ${language.level || ''}`;
+                p.appendChild(strong);
+                p.appendChild(span);
+                langInfoDiv.appendChild(p);
+            });
+        }
+
+        // Update active language button style
         langButtons.forEach(btn => {
             btn.classList.toggle('active', btn.id === `lang-${lang}`);
         });
@@ -186,57 +185,57 @@ document.addEventListener('DOMContentLoaded', () => {
     langButtons.forEach(button => {
         button.addEventListener('click', () => {
             const selectedLang = button.id.split('-')[1];
-            localStorage.setItem('preferredLang', selectedLang); // Save preference
+            localStorage.setItem('preferredLang', selectedLang);
             updateText(selectedLang);
-             // Close mobile menu if open after language change
-            if (navMenu && navMenu.classList.contains('active')) { // Add check for navMenu
+            if (navMenu && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
             }
         });
     });
 
     // Mobile Menu Toggle
-    if (mobileMenuToggle && navMenu) { // Add checks for elements
-         mobileMenuToggle.addEventListener('click', () => {
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
     }
 
-
     // Close mobile menu when a link is clicked
-     if (navMenu) { // Add check for navMenu
+    if (navMenu) {
         navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', () => {
                 if (link.getAttribute('href').startsWith('#') && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                 }
             });
         });
-     }
-
+    }
 
     // --- Initial Load ---
-    // Set current year in footer
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // Set initial language
     const preferredLang = localStorage.getItem('preferredLang') || 'sv';
-    // Ensure data is available before the first update
-    if (window.portfolioData) {
-        updateText(preferredLang);
-        // console.log(`Initial language set to: ${preferredLang}`); // Debug log
+
+    // Validate preferredLang against available languages in siteData.languages or siteData.translations
+    let initialLangToLoad = 'sv'; // Fallback
+    if (siteData.languages && siteData.languages.some(l => l.code === preferredLang)) {
+        initialLangToLoad = preferredLang;
+    } else if (siteData.translations && siteData.translations[preferredLang]){
+        initialLangToLoad = preferredLang;
     } else {
-        // Data might not be ready *exactly* on DOMContentLoaded with define:vars, add slight delay or wait event
-        console.warn("Initial portfolioData not found on DOMContentLoaded, attempting fallback...");
-        setTimeout(() => {
-            if (window.portfolioData) {
-                updateText(preferredLang);
-            } else {
-                 console.error("ERROR: portfolioData still not available after delay.");
+        // If preferredLang is invalid, use the first available language or 'sv'
+        if (siteData.languages && siteData.languages.length > 0) {
+            initialLangToLoad = siteData.languages[0].code;
+        } else if (siteData.translations) {
+            const availableLangs = Object.keys(siteData.translations);
+            if (availableLangs.length > 0) {
+                initialLangToLoad = availableLangs[0];
             }
-        }, 100); // Small delay as a fallback
+        }
+        localStorage.setItem('preferredLang', initialLangToLoad); // Correct localStorage if it was invalid
     }
 
-}); // End DOMContentLoaded
+    updateText(initialLangToLoad);
+});

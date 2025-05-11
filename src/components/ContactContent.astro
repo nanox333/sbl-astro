@@ -1,0 +1,30 @@
+---
+// src/components/ContactContent.astro
+export interface Props {
+  content: {
+    title: string;
+    intro: string;
+    email_label: string;
+    email_address: string;
+    phone_label: string;
+    phone_number: string;
+    linkedin_label: string;
+    linkedin_url: string;
+    linkedin_link_text: string;
+    location_label: string;
+    location_text: string;
+  };
+}
+
+const { content } = Astro.props;
+---
+<div class="container">
+    <h2>{content.title}</h2>
+    <p class="contact-intro">{content.intro}</p>
+    <div class="contact-info">
+         <p><strong>{content.email_label}</strong> <a href={`mailto:${content.email_address}`}>{content.email_address}</a></p>
+         <p><strong>{content.phone_label}</strong> <a href={`tel:${content.phone_number.replace(' ', '')}`}>{content.phone_number}</a></p>
+         <p><strong>{content.linkedin_label}</strong> <a href={content.linkedin_url} target="_blank" rel="noopener noreferrer">{content.linkedin_link_text}</a></p>
+         <p><strong>{content.location_label}</strong> <span>{content.location_text}</span></p>
+    </div>
+</div> 

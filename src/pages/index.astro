@@ -1,111 +1,62 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import pageData from '../data/pageData.json'; // Import data again here
+import pageData from '../data/pageData.json';
+import HeroContent from '../components/HeroContent.astro'; // Import the new component
+import AboutContent from '../components/AboutContent.astro'; // Import the new component
+import ExperienceContent from '../components/ExperienceContent.astro'; // Import the new component
+import EducationContent from '../components/EducationContent.astro'; // Import the new component
+import ContactContent from '../components/ContactContent.astro'; // Import the new component
 
-// Define helper for language selection (can be improved later)
-const lang = 'sv'; // Default to Swedish for static generation
+// Define LangCode from the keys of the translations object
+type LangCode = keyof typeof pageData.translations; // Correctly infers 'sv' | 'en'
 
-// Define object ID for annotations
+const initialLangCode: LangCode = 'sv'; // Default language code
+
+// Determine the current language code
+let currentLang: LangCode = initialLangCode;
+if (Astro.props.lang && Astro.props.lang in pageData.translations) {
+    currentLang = Astro.props.lang as LangCode;
+}
+
+// Get the translations for the current language
+const t = pageData.translations[currentLang]; // t is now correctly typed, no need for ': any'
+
+// Determine the CV link based on the current language
+// Ensure currentLang is a valid key for pageData.cv, or use a default
+const cvLangKey = (currentLang in pageData.cv ? currentLang : initialLangCode) as keyof typeof pageData.cv;
+const cvLink = pageData.cv[cvLangKey];
+
 const dataObjectId = "src/data/pageData.json"; // Use consistent ID
 ---
-<Layout title={pageData[`title_${lang}`]}> {/* Pass title to layout */}
-
+<Layout lang={currentLang}>
   {/* --- HERO --- */}
   <section id="home" class="hero" data-sb-object-id={dataObjectId}>
-      <div class="container hero-content">
-          <img src={pageData.headshot} alt={`${pageData.footer_section.name} Headshot`} class="headshot" data-sb-field-path="headshot">
-          <div>
-              <h1 data-lang-key="heroTitle" data-sb-field-path="hero_section.title_sv">{pageData.hero_section[`title_${lang}`]}</h1>
-              <p class="subtitle" data-lang-key="heroSubtitle" data-sb-field-path="hero_section.subtitle_sv">{pageData.hero_section[`subtitle_${lang}`]}</p>
-              <div class="hero-buttons">
-                   <a href="#contact" class="button" data-lang-key="heroContactBtn" data-sb-field-path="hero_section.contact_btn_sv">{pageData.hero_section[`contact_btn_${lang}`]}</a>
-                   <a href={pageData[`cv_${lang}`]} target="_blank" rel="noopener noreferrer" class="button secondary" data-lang-key="heroCvBtn" id="cv-download-link" data-sb-field-path="hero_section.cv_btn_sv" data-sb-field-path-href={`cv_${lang}`}>{pageData.hero_section[`cv_btn_${lang}`]}</a>
-                   {/* Note: Check if data-sb-field-path-href works for href */}
-              </div>
-          </div>
-      </div>
+    <HeroContent 
+      content={t.hero_section} 
+      headshotUrl={pageData.headshot} 
+      cvUrl={cvLink} 
+      nameForHeadshotAlt={t.footer_section.name}
+    />
   </section>
 
   {/* --- ABOUT --- */}
   <section id="about" class="about section-padding" data-sb-object-id={dataObjectId}>
-      <div class="container">
-          <h2 data-lang-key="aboutTitle" data-sb-field-path="about_section.title_sv">{pageData.about_section[`title_${lang}`]}</h2>
-          <p data-lang-key="aboutText1" data-sb-field-path="about_section.text1_sv">{pageData.about_section[`text1_${lang}`]}</p>
-          <p data-lang-key="aboutText2" data-sb-field-path="about_section.text2_sv">{pageData.about_section[`text2_${lang}`]}</p>
-          <h3 data-lang-key="skillsTitle" data-sb-field-path="about_section.skills_title_sv">{pageData.about_section[`skills_title_${lang}`]}</h3>
-          <ul class="skills" data-sb-field-path="about_section.skills">
-              {pageData.about_section.skills.map((item, index) => (
-                  <li data-lang-key={`skill_${index + 1}`} data-sb-object-id={`${dataObjectId}#about_section.skills[${index}]`} data-sb-field-path=".skill_sv">
-                      {item[`skill_${lang}`]}
-                  </li>
-              ))}
-          </ul>
-      </div>
+    <AboutContent content={t.about_section} />
   </section>
 
   {/* --- EXPERIENCE --- */}
   <section id="experience" class="experience section-padding alt-bg" data-sb-object-id={dataObjectId}>
-      <div class="container">
-          <h2 data-lang-key="experienceTitle" data-sb-field-path="experience_section.title_sv">{pageData.experience_section[`title_${lang}`]}</h2>
-          <div class="timeline" data-sb-field-path="experience_section.jobs">
-              {pageData.experience_section.jobs.map((job, index) => (
-                  <div class="timeline-item card" data-sb-object-id={`${dataObjectId}#experience_section.jobs[${index}]`}>
-                      <h3 data-lang-key={`exp${index + 1}Title`} data-sb-field-path=".title_sv">{job[`title_${lang}`]}</h3>
-                      <p class="company" data-sb-field-path=".company">{job.company}</p>
-                      <p class="dates" data-lang-key={`exp${index + 1}Dates`} data-sb-field-path=".dates_sv">{job[`dates_${lang}`]}</p>
-                      <ul data-lang-key={`exp${index + 1}Desc`} data-sb-field-path=".desc_sv">
-                          {job[`desc_${lang}`].map((descItem, descIndex) => (
-                              <li data-sb-field-path={`.desc_sv[${descIndex}]`}>{descItem}</li>
-                          ))}
-                      </ul>
-                  </div>
-              ))}
-          </div>
-      </div>
+    <ExperienceContent content={t.experience_section} />
   </section>
 
    {/* --- EDUCATION --- */}
   <section id="education" class="education section-padding" data-sb-object-id={dataObjectId}>
-      <div class="container">
-          <h2 data-lang-key="educationTitle" data-sb-field-path="education_section.title_sv">{pageData.education_section[`title_${lang}`]}</h2>
-          <div class="timeline" data-sb-field-path="education_section.educations">
-              {pageData.education_section.educations.map((edu, index) => (
-                   <div class="timeline-item card" data-sb-object-id={`${dataObjectId}#education_section.educations[${index}]`}>
-                      <h3 data-lang-key={`edu${index + 1}Title`} data-sb-field-path=".title_sv">{edu[`title_${lang}`]}</h3>
-                      <p class="institution" data-sb-field-path=".institution">{edu.institution}</p>
-                      <p class="dates" data-lang-key={`edu${index + 1}Dates`} data-sb-field-path=".dates_sv">{edu[`dates_${lang}`]}</p>
-                      {/* Conditional Rendering in Astro */}
-                      {edu[`details_${lang}`] && (
-                          <p class="details" data-lang-key={`edu${index + 1}Details`} data-sb-field-path=".details_sv">{edu[`details_${lang}`]}</p>
-                      )}
-                  </div>
-              ))}
-          </div>
-           <h3 data-lang-key="languagesTitle" data-sb-field-path="education_section.lang_title_sv">{pageData.education_section[`lang_title_${lang}`]}</h3>
-           <div class="language-info" data-sb-field-path="education_section.languages">
-              {pageData.education_section.languages.map((language, index) => (
-                   <p data-sb-object-id={`${dataObjectId}#education_section.languages[${index}]`}>
-                       <strong data-lang-key={`lang${index+1}Name`} data-sb-field-path=".name_sv">{language[`name_${lang}`]}:</strong>
-                       <span data-lang-key={`lang${index+1}Level`} data-sb-field-path=".level_sv">{language[`level_${lang}`]}</span>
-                   </p>
-              ))}
-           </div>
-      </div>
+    <EducationContent content={t.education_section} />
   </section>
 
   {/* --- CONTACT --- */}
   <section id="contact" class="contact section-padding alt-bg" data-sb-object-id={dataObjectId}>
-      <div class="container">
-          <h2 data-lang-key="contactTitle" data-sb-field-path="contact_section.title_sv">{pageData.contact_section[`title_${lang}`]}</h2>
-          <p class="contact-intro" data-lang-key="contactIntro" data-sb-field-path="contact_section.intro_sv">{pageData.contact_section[`intro_${lang}`]}</p>
-          <div class="contact-info">
-               <p><strong data-lang-key="contactEmailLabel" data-sb-field-path="contact_section.email_label_sv">{pageData.contact_section[`email_label_${lang}`]}</strong> <a href={`mailto:${pageData.contact_section.email_address}`} data-sb-field-path="contact_section.email_address">{pageData.contact_section.email_address}</a></p>
-               <p><strong data-lang-key="contactPhoneLabel" data-sb-field-path="contact_section.phone_label_sv">{pageData.contact_section[`phone_label_${lang}`]}</strong> <a href={`tel:${pageData.contact_section.phone_number.replace(' ', '')}`} data-sb-field-path="contact_section.phone_number">{pageData.contact_section.phone_number}</a></p>
-               <p><strong data-lang-key="contactLinkedInLabel" data-sb-field-path="contact_section.linkedin_label_sv">{pageData.contact_section[`linkedin_label_${lang}`]}</strong> <a href={pageData.contact_section.linkedin_url} target="_blank" rel="noopener noreferrer" data-lang-key="contactLinkedInLinkText" data-sb-field-path="contact_section.linkedin_link_text_sv" data-sb-field-path-href="contact_section.linkedin_url">{pageData.contact_section[`linkedin_link_text_${lang}`]}</a></p>
-               <p><strong data-lang-key="contactLocationLabel" data-sb-field-path="contact_section.location_label_sv">{pageData.contact_section[`location_label_${lang}`]}</strong> <span data-lang-key="contactLocationText" data-sb-field-path="contact_section.location_text_sv">{pageData.contact_section[`location_text_${lang}`]}</span></p>
-          </div>
-      </div>
+    <ContactContent content={t.contact_section} />
   </section>
-
 </Layout>

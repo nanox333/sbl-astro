@@ -1,0 +1,45 @@
+---
+// src/components/EducationContent.astro
+export interface Props {
+  content: {
+    title: string;
+    educations: Array<{
+      title: string;
+      institution: string;
+      dates: string;
+      details: string | null;
+    }>;
+    lang_title: string;
+    languages: Array<{
+      name: string;
+      level: string;
+    }>;
+  };
+}
+
+const { content } = Astro.props;
+---
+<div class="container">
+    <h2>{content.title}</h2>
+    <div class="timeline" data-sb-field-path="education_section.educations">
+        {content.educations.map((edu: any) => (
+             <div class="timeline-item card">
+                <h3>{edu.title}</h3>
+                <p class="institution">{edu.institution}</p>
+                <p class="dates">{edu.dates}</p>
+                {edu.details && (
+                    <p class="details">{edu.details}</p>
+                )}
+            </div>
+        ))}
+    </div>
+     <h3>{content.lang_title}</h3>
+     <div class="language-info" data-sb-field-path="education_section.languages">
+        {content.languages.map((language: any) => (
+             <p>
+                 <strong>{language.name}:</strong>
+                 <span> {language.level}</span>
+             </p>
+        ))}
+     </div>
+</div> 

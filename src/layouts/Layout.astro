@@ -2,21 +2,30 @@
 // src/layouts/Layout.astro
 import pageData from '../data/pageData.json';
 
-interface Props {
-    title?: string;
+// Define LangCode from the keys of the translations object
+type LangCode = keyof typeof pageData.translations; // Correctly infers 'sv' | 'en'
+
+const languages = pageData.languages;
+const initialLangCode: LangCode = 'sv'; // Default language code
+
+// Determine the current language code
+let currentLang: LangCode = initialLangCode;
+if (Astro.props.lang && Astro.props.lang in pageData.translations) {
+    currentLang = Astro.props.lang as LangCode;
 }
 
-const { title = pageData.title_sv } = Astro.props;
-const initialLang = 'sv'; // Your script will override this based on localStorage
-const footerName = pageData.footer_section.name;
-const footerRights = pageData.footer_section[`rights_${initialLang}`];
+// Get the translations for the current language
+const t = pageData.translations[currentLang]; // t is now correctly typed
+
+const footerName = t.footer_section.name;
+const footerRights = t.footer_section.rights;
 ---
 <!DOCTYPE html>
-<html lang={initialLang}>
+<html lang={currentLang}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="pageTitle">{title}</title>
+    <title>{t.title}</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,46 +34,44 @@ const footerRights = pageData.footer_section[`rights_${initialLang}`];
 <body>
     <header>
         <div class="container header-content">
-            <a href="#home" class="logo" data-sb-object-id="src/data/pageData.json" data-sb-field-path="footer_section.name">{footerName}</a>
+            <a href="#home" class="logo">{footerName}</a>
             <nav>
                 <ul>
-                    <li><a href="#about" data-lang-key="navAbout">Om Mig</a></li>
-                    <li><a href="#experience" data-lang-key="navExperience">Erfarenhet</a></li>
-                    <li><a href="#education" data-lang-key="navEducation">Utbildning</a></li>
-                    <li><a href="#contact" data-lang-key="navContact">Kontakt</a></li>
+                    <li><a href="#about">{t.about_section.title}</a></li>
+                    <li><a href="#experience">{t.experience_section.title}</a></li>
+                    <li><a href="#education">{t.education_section.title}</a></li>
+                    <li><a href="#contact">{t.contact_section.title}</a></li>
                 </ul>
             </nav>
             <div class="lang-switch">
-                <button id="lang-sv">SV</button>
-                <button id="lang-en">EN</button>
+                {languages.map(l => (
+                  <button id={`lang-${l.code}`}>{l.label}</button>
+                ))}
             </div>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
         </div>
     </header>
 
     <main>
-        <slot />
+        <slot lang={currentLang} />
     </main>
 
     <footer>
-        <div class="container" data-sb-object-id="src/data/pageData.json">
-            <p>© <span id="current-year"></span> <span data-sb-field-path="footer_section.name">{footerName}</span>. <span data-lang-key="footerRights" data-sb-field-path="footer_section.rights_sv">{footerRights}</span></p>
+        <div class="container">
+            <p>© <span id="current-year"></span> <span>{footerName}</span>. <span>{footerRights}</span></p>
         </div>
     </footer>
 
     {/* --- UPDATED DATA INJECTION --- */}
-    {/* Pass data, ensuring it's stringified and parsed correctly into a global variable */}
     <script is:inline define:vars={{ pageDataJSON: JSON.stringify(pageData) }}>
       try {
         window.portfolioData = JSON.parse(pageDataJSON);
-        // console.log('Portfolio Data successfully set on window.'); // Uncomment for debugging
       } catch (e) {
         console.error('Failed to parse portfolioData:', e);
-        window.portfolioData = null; // Ensure it's null if parsing fails
+        window.portfolioData = null;
       }
     </script>
 
-    {/* Link your existing JS */}
     <script is:inline src="/js/script.js"></script>
 </body>
 </html>

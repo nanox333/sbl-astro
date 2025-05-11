@@ -1,0 +1,25 @@
+---
+// src/components/AboutContent.astro
+export interface Props {
+  content: {
+    title: string;
+    text1: string;
+    text2: string;
+    skills_title: string;
+    skills: string[];
+  };
+}
+
+const { content } = Astro.props;
+---
+<div class="container">
+    <h2>{content.title}</h2>
+    <p>{content.text1}</p>
+    <p>{content.text2}</p>
+    <h3>{content.skills_title}</h3>
+    <ul class="skills">
+        {content.skills.map((item: string) => (
+            <li>{item}</li>
+        ))}
+    </ul>
+</div> 

@@ -1,0 +1,27 @@
+---
+// src/components/HeroContent.astro
+export interface Props {
+  content: {
+    title: string;
+    subtitle: string;
+    contact_btn: string;
+    cv_btn: string;
+  };
+  headshotUrl: string;
+  cvUrl: string;
+  nameForHeadshotAlt: string;
+}
+
+const { content, headshotUrl, cvUrl, nameForHeadshotAlt } = Astro.props;
+---
+<div class="container hero-content">
+    <img src={headshotUrl} alt={`${nameForHeadshotAlt} Headshot`} class="headshot">
+    <div>
+        <h1>{content.title}</h1>
+        <p class="subtitle">{content.subtitle}</p>
+        <div class="hero-buttons">
+             <a href="#contact" class="button">{content.contact_btn}</a>
+             <a href={cvUrl} target="_blank" rel="noopener noreferrer" class="button secondary" id="cv-download-link">{content.cv_btn}</a>
+        </div>
+    </div>
+</div> 

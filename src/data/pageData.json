@@ -1,210 +1,289 @@
 {
-  "title_sv": "Samuel B Liljenberg | Ekonomistudent",
-  "title_en": "Samuel B Liljenberg | Economics Student",
+  "languages": [
+    { "code": "sv", "label": "SV" },
+    { "code": "en", "label": "EN" }
+  ],
   "headshot": "/images/samuel_headshot.jpg",
-  "cv_sv": "/cv/Samuel_Liljenberg_CV_SV.pdf",
-  "cv_en": "/cv/Samuel_Liljenberg_CV_EN.pdf",
-  "hero_section": {
-    "title_sv": "Samuel B Liljenberg",
-    "title_en": "Samuel B Liljenberg",
-    "subtitle_sv": "Engagerad ekonomistudent med fokus på Internationell Marknadsföring och erfarenhet inom logistik, service och ledarskap.",
-    "subtitle_en": "Engaged economics student focusing on International Marketing with experience in logistics, service, and leadership.",
-    "contact_btn_sv": "Kontakta Mig",
-    "contact_btn_en": "Contact Me",
-    "cv_btn_sv": "Ladda ner CV",
-    "cv_btn_en": "Download CV"
+  "cv": {
+    "sv": "/cv/Samuel_Liljenberg_CV_SV.pdf",
+    "en": "/cv/Samuel_Liljenberg_CV_EN.pdf"
   },
-  "about_section": {
-    "title_sv": "Om Mig",
-    "title_en": "About Me",
-    "text1_sv": "Jag är en strukturerad och engagerad ekonomistudent med inriktning mot internationell marknadsföring vid Kristianstad Högskola. Jag har gedigen erfarenhet från logistik, service och ledarskap. Mina tidigare roller som lageransvarig och bemanningskonsult har utvecklat mitt sinne för noggrannhet och effektivitet.",
-    "text1_en": "I am a structured and engaged economics student focusing on international marketing at Kristianstad University. I have solid experience in logistics, service, and leadership. My previous roles as a logistics manager and staffing consultant have developed my sense for accuracy and efficiency.",
-    "text2_sv": "Jag är nyfiken, driven och trivs bäst i roller där jag får ta eget ansvar och bidra aktivt till teamets framgång. Genom mina förtroendeuppdrag som ordförande för studentkommittén och förtroendevald inom Försvarsmakten har jag stärkt mina ledaregenskaper samt min förmåga att kommunicera och samarbeta med olika typer av människor.",
-    "text2_en": "I am curious, driven, and thrive best in roles where I can take initiative and actively contribute to the team's success. Through my positions of trust as chairman of the student committee and elected representative in the Swedish Armed Forces, I have strengthened my leadership skills and my ability to communicate and collaborate with different types of people.",
-    "skills_title_sv": "Kärnkompetenser",
-    "skills_title_en": "Core Competencies",
-    "skills": [
-      { "skill_sv": "Analytisk förmåga", "skill_en": "Analytical ability" },
-      { "skill_sv": "Social kompetens", "skill_en": "Social competence" },
-      { "skill_sv": "Kreativitet", "skill_en": "Creativity" },
-      { "skill_sv": "Problemlösningsförmåga", "skill_en": "Problem-solving ability" },
-      { "skill_sv": "Lagspelare", "skill_en": "Team player" },
-      { "skill_sv": "Ledarskapsförmåga", "skill_en": "Leadership ability" },
-      { "skill_sv": "Flexibilitet", "skill_en": "Flexibility" },
-      { "skill_sv": "Punktlig och ansvarstagande", "skill_en": "Punctual and responsible" }
-    ]
-  },
-  "experience_section": {
-     "title_sv": "Erfarenhet",
-     "title_en": "Experience",
-     "jobs": [
-       {
-         "title_sv": "Lageransvarig logistik",
-         "title_en": "Warehouse Logistics Coordinator",
-         "company": "Atria Sverige | Sölvesborg",
-         "dates_sv": "Juni 2024 - September 2024",
-         "dates_en": "June 2024 - September 2024",
-         "desc_sv": [
-            "Lageransvarig för indirekt material",
-            "Ansvarig för inkommande leveranser",
-            "Servade produktion samt utlastning med material"
-          ],
-         "desc_en": [
-            "Warehouse logistics coordinator for indirect materials",
-            "Responsible for incoming deliveries",
-            "Serviced production and handled material loading"
-          ]
-       },
-       {
-         "title_sv": "Butiksansvarig och butikssäljare",
-         "title_en": "Sales Lead and Key Holder",
-         "company": "Atria Sverige | Sölvesborg",
-         "dates_sv": "Februari 2024 - Juni 2024",
-         "dates_en": "February 2024 - June 2024",
-         "desc_sv": [
-            "Ansvar för kolonial- och färskvarupåfyllning",
-            "Ansvar för prissättning",
-            "Kassahantering",
-            "Kundservice"
-          ],
-         "desc_en": [
-            "Responsible for grocery and fresh produce replenishment",
-            "Responsible for pricing",
-            "Cash handling",
-            "Customer service"
-         ]
-       },
-       {
-         "title_sv": "Truckförare, bemanningskonsult",
-         "title_en": "Forklift Operator, Staffing Consultant",
-         "company": "Lernia AB | Olofström",
-         "dates_sv": "Februari 2023 - Augusti 2023",
-         "dates_en": "February 2023 - August 2023",
-         "desc_sv": [
-            "Servade sammansättning, presslinjer och utlastning med material"
-          ],
-         "desc_en": [
-            "Serviced assembly, press lines, and loading with material"
-          ]
-       },
-       {
-         "title_sv": "Bartender och servitör",
-         "title_en": "Bartender and Waiter",
-         "company": "Eriksberg Vilt & Natur AB | Karlshamn",
-         "dates_sv": "Juni 2021 - Juli 2021",
-         "dates_en": "June 2021 - July 2021",
-         "desc_sv": [
-            "Ansvar för Veckans drink, skapade nya drinkar"
-          ],
-         "desc_en": [
-            "Responsible for 'Drink of the Week', created new drinks"
-          ]
-       },
-       {
-         "title_sv": "Aktivitetsledare och marknadsförare",
-         "title_en": "Activity Leader and Marketer",
-         "company": "Bromölla Kommun | Bromölla",
-         "dates_sv": "Juni 2020 - Augusti 2020",
-         "dates_en": "June 2020 - August 2020",
-         "desc_sv": [
-            "Skapade marknadsföringsmaterial om cykel- och vandringsleder (film, foto, redigering)"
-          ],
-         "desc_en": [
-            "Created marketing materials for cycling and hiking trails (film, photo, editing)"
-          ]
-       }
-     ]
-  },
-   "education_section": {
-     "title_sv": "Utbildning",
-     "title_en": "Education",
-     "educations": [
-        {
-          "title_sv": "Kandidatexamen | Ekonomi",
-          "title_en": "Bachelor's Degree | Economics",
-          "institution": "Kristianstad Högskola, Kristianstad",
-          "dates_sv": "2024 - 2027 (Pågående)",
-          "dates_en": "2024 - 2027 (Ongoing)",
-          "details_sv": "Inriktning Internationell Marknadsföring",
-          "details_en": "Specialization in International Marketing"
-        },
-        {
-          "title_sv": "Stadsbyggnad, stadsutveckling och planering",
-          "title_en": "Urban Planning, Urban Development and Planning",
-          "institution": "Malmö Universitet, Malmö",
-          "dates_sv": "2023 - 2024",
-          "dates_en": "2023 - 2024",
-          "details_sv": null,
-          "details_en": null
-        },
-        {
-          "title_sv": "Kurs 7,5 hp | Ledarskap",
-          "title_en": "Course 7.5 ECTS | Leadership",
-          "institution": "Halmstad högskola, Halmstad",
-          "dates_sv": "2023",
-          "dates_en": "2023",
-          "details_sv": null,
-          "details_en": null
-        },
-        {
-          "title_sv": "Gruppbefälsutbildning | Ledarskap",
-          "title_en": "Group Commander Training | Leadership",
-          "institution": "Försvarsmakten, Halmstad",
-          "dates_sv": "2022 - 2023",
-          "dates_en": "2022 - 2023",
-          "details_sv": null,
-          "details_en": null
-        },
-        {
-          "title_sv": "Grundläggande Militär Utbildning",
-          "title_en": "Basic Military Training",
-          "institution": "Försvarsmakten, Halmstad",
-          "dates_sv": "2022 - 2023",
-          "dates_en": "2022 - 2023",
-          "details_sv": null,
-          "details_en": null
-        },
-        {
-          "title_sv": "Gymnasieexamen | Samhällsvetenskapsprogrammet",
-          "title_en": "Upper Secondary Diploma | Social Science Programme",
-          "institution": "Drottning Blankas Gymnasieskola, Kristianstad",
-          "dates_sv": "2019 - 2022",
-          "dates_en": "2019 - 2022",
-          "details_sv": null,
-          "details_en": null
-        }
-     ],
-     "lang_title_sv": "Språk",
-     "lang_title_en": "Languages",
-     "languages": [
-        { "name_sv": "Svenska", "name_en": "Swedish", "level_sv": "Modersmål", "level_en": "Native" },
-        { "name_sv": "Engelska", "name_en": "English", "level_sv": "Avancerad nivå", "level_en": "Advanced" }
-     ]
-   },
-   "contact_section": {
-     "title_sv": "Kontakta Mig",
-     "title_en": "Contact Me",
-     "intro_sv": "Intresserad av att diskutera möjligheter eller bara säga hej? Hör gärna av dig!",
-     "intro_en": "Interested in discussing opportunities or just saying hello? Feel free to reach out!",
-     "email_label_sv": "E-post:",
-     "email_label_en": "Email:",
-     "email_address": "samuel.b.liljenberg@gmail.com",
-     "phone_label_sv": "Telefon:",
-     "phone_label_en": "Phone:",
-     "phone_number": "+46 70 852 62 32",
-     "linkedin_label_sv": "LinkedIn:",
-     "linkedin_label_en": "LinkedIn:",
-     "linkedin_link_text_sv": "Besök Profil",
-     "linkedin_link_text_en": "View Profile",
-     "linkedin_url": "https://www.linkedin.com/in/samuel-berg-liljenberg-079864325/",
-     "location_label_sv": "Plats:",
-     "location_label_en": "Location:",
-     "location_text_sv": "Kristianstad, Sverige",
-     "location_text_en": "Kristianstad, Sweden"
-   },
-   "footer_section": {
-       "rights_sv": "Alla rättigheter förbehållna.",
-       "rights_en": "All rights reserved.",
-       "name": "Samuel B Liljenberg"
-   }
+  "translations": {
+    "sv": {
+      "title": "Samuel B Liljenberg | Ekonomistudent",
+      "hero_section": {
+        "title": "Samuel B Liljenberg",
+        "subtitle": "Engagerad ekonomistudent med fokus på Internationell Marknadsföring och erfarenhet inom logistik, service och ledarskap.",
+        "contact_btn": "Kontakta Mig",
+        "cv_btn": "Ladda ner CV"
+      },
+      "about_section": {
+        "title": "Om Mig",
+        "text1": "Jag är en strukturerad och engagerad ekonomistudent med inriktning mot internationell marknadsföring vid Kristianstad Högskola. Jag har gedigen erfarenhet från logistik, service och ledarskap. Mina tidigare roller som lageransvarig och bemanningskonsult har utvecklat mitt sinne för noggrannhet och effektivitet.",
+        "text2": "Jag är nyfiken, driven och trivs bäst i roller där jag får ta eget ansvar och bidra aktivt till teamets framgång. Genom mina förtroendeuppdrag som ordförande för studentkommittén och förtroendevald inom Försvarsmakten har jag stärkt mina ledaregenskaper samt min förmåga att kommunicera och samarbeta med olika typer av människor.",
+        "skills_title": "Kärnkompetenser",
+        "skills": [
+          "Analytisk förmåga",
+          "Social kompetens",
+          "Kreativitet",
+          "Problemlösningsförmåga",
+          "Lagspelare",
+          "Ledarskapsförmåga",
+          "Flexibilitet",
+          "Punktlig och ansvarstagande"
+        ]
+      },
+      "experience_section": {
+        "title": "Erfarenhet",
+        "jobs": [
+          {
+            "title": "Lageransvarig logistik",
+            "company": "Atria Sverige | Sölvesborg",
+            "dates": "Juni 2024 - September 2024",
+            "desc": [
+              "Lageransvarig för indirekt material",
+              "Ansvarig för inkommande leveranser",
+              "Servade produktion samt utlastning med material"
+            ]
+          },
+          {
+            "title": "Butiksansvarig och butikssäljare",
+            "company": "Atria Sverige | Sölvesborg",
+            "dates": "Februari 2024 - Juni 2024",
+            "desc": [
+              "Ansvar för kolonial- och färskvarupåfyllning",
+              "Ansvar för prissättning",
+              "Kassahantering",
+              "Kundservice"
+            ]
+          },
+          {
+            "title": "Truckförare, bemanningskonsult",
+            "company": "Lernia AB | Olofström",
+            "dates": "Februari 2023 - Augusti 2023",
+            "desc": [
+              "Servade sammansättning, presslinjer och utlastning med material"
+            ]
+          },
+          {
+            "title": "Bartender och servitör",
+            "company": "Eriksberg Vilt & Natur AB | Karlshamn",
+            "dates": "Juni 2021 - Juli 2021",
+            "desc": [
+              "Ansvar för Veckans drink, skapade nya drinkar"
+            ]
+          },
+          {
+            "title": "Aktivitetsledare och marknadsförare",
+            "company": "Bromölla Kommun | Bromölla",
+            "dates": "Juni 2020 - Augusti 2020",
+            "desc": [
+              "Skapade marknadsföringsmaterial om cykel- och vandringsleder (film, foto, redigering)"
+            ]
+          }
+        ]
+      },
+      "education_section": {
+        "title": "Utbildning",
+        "educations": [
+          {
+            "title": "Kandidatexamen | Ekonomi",
+            "institution": "Kristianstad Högskola, Kristianstad",
+            "dates": "2024 - 2027 (Pågående)",
+            "details": "Inriktning Internationell Marknadsföring"
+          },
+          {
+            "title": "Stadsbyggnad, stadsutveckling och planering",
+            "institution": "Malmö Universitet, Malmö",
+            "dates": "2023 - 2024",
+            "details": null
+          },
+          {
+            "title": "Kurs 7,5 hp | Ledarskap",
+            "institution": "Halmstad högskola, Halmstad",
+            "dates": "2023",
+            "details": null
+          },
+          {
+            "title": "Gruppbefälsutbildning | Ledarskap",
+            "institution": "Försvarsmakten, Halmstad",
+            "dates": "2022 - 2023",
+            "details": null
+          },
+          {
+            "title": "Grundläggande Militär Utbildning",
+            "institution": "Försvarsmakten, Halmstad",
+            "dates": "2022 - 2023",
+            "details": null
+          },
+          {
+            "title": "Gymnasieexamen | Samhällsvetenskapsprogrammet",
+            "institution": "Drottning Blankas Gymnasieskola, Kristianstad",
+            "dates": "2019 - 2022",
+            "details": null
+          }
+        ],
+        "lang_title": "Språk",
+        "languages": [
+          { "name": "Svenska", "level": "Modersmål" },
+          { "name": "Engelska", "level": "Avancerad nivå" }
+        ]
+      },
+      "contact_section": {
+        "title": "Kontakta Mig",
+        "intro": "Intresserad av att diskutera möjligheter eller bara säga hej? Hör gärna av dig!",
+        "email_label": "E-post:",
+        "email_address": "samuel.b.liljenberg@gmail.com",
+        "phone_label": "Telefon:",
+        "phone_number": "+46 70 852 62 32",
+        "linkedin_label": "LinkedIn:",
+        "linkedin_link_text": "Besök Profil",
+        "linkedin_url": "https://www.linkedin.com/in/samuel-berg-liljenberg-079864325/",
+        "location_label": "Plats:",
+        "location_text": "Kristianstad, Sverige"
+      },
+      "footer_section": {
+        "rights": "Alla rättigheter förbehållna.",
+        "name": "Samuel B Liljenberg"
+      }
+    },
+    "en": {
+      "title": "Samuel B Liljenberg | Economics Student",
+      "hero_section": {
+        "title": "Samuel B Liljenberg",
+        "subtitle": "Engaged economics student focusing on International Marketing with experience in logistics, service, and leadership.",
+        "contact_btn": "Contact Me",
+        "cv_btn": "Download CV"
+      },
+      "about_section": {
+        "title": "About Me",
+        "text1": "I am a structured and engaged economics student focusing on international marketing at Kristianstad University. I have solid experience in logistics, service, and leadership. My previous roles as a logistics manager and staffing consultant have developed my sense for accuracy and efficiency.",
+        "text2": "I am curious, driven, and thrive best in roles where I can take initiative and actively contribute to the team's success. Through my positions of trust as chairman of the student committee and elected representative in the Swedish Armed Forces, I have strengthened my leadership skills and my ability to communicate and collaborate with different types of people.",
+        "skills_title": "Core Competencies",
+        "skills": [
+          "Analytical ability",
+          "Social competence",
+          "Creativity",
+          "Problem-solving ability",
+          "Team player",
+          "Leadership ability",
+          "Flexibility",
+          "Punctual and responsible"
+        ]
+      },
+      "experience_section": {
+        "title": "Experience",
+        "jobs": [
+          {
+            "title": "Warehouse Logistics Coordinator",
+            "company": "Atria Sverige | Sölvesborg",
+            "dates": "June 2024 - September 2024",
+            "desc": [
+              "Warehouse logistics coordinator for indirect materials",
+              "Responsible for incoming deliveries",
+              "Serviced production and handled material loading"
+            ]
+          },
+          {
+            "title": "Sales Lead and Key Holder",
+            "company": "Atria Sverige | Sölvesborg",
+            "dates": "February 2024 - June 2024",
+            "desc": [
+              "Responsible for grocery and fresh produce replenishment",
+              "Responsible for pricing",
+              "Cash handling",
+              "Customer service"
+            ]
+          },
+          {
+            "title": "Forklift Operator, Staffing Consultant",
+            "company": "Lernia AB | Olofström",
+            "dates": "February 2023 - August 2023",
+            "desc": [
+              "Serviced assembly, press lines, and loading with material"
+            ]
+          },
+          {
+            "title": "Bartender and Waiter",
+            "company": "Eriksberg Vilt & Natur AB | Karlshamn",
+            "dates": "June 2021 - July 2021",
+            "desc": [
+              "Responsible for 'Drink of the Week', created new drinks"
+            ]
+          },
+          {
+            "title": "Activity Leader and Marketer",
+            "company": "Bromölla Kommun | Bromölla",
+            "dates": "June 2020 - August 2020",
+            "desc": [
+              "Created marketing materials for cycling and hiking trails (film, photo, editing)"
+            ]
+          }
+        ]
+      },
+      "education_section": {
+        "title": "Education",
+        "educations": [
+          {
+            "title": "Bachelor's Degree | Economics",
+            "institution": "Kristianstad University, Kristianstad",
+            "dates": "2024 - 2027 (Ongoing)",
+            "details": "Specialization in International Marketing"
+          },
+          {
+            "title": "Urban Planning, Urban Development and Planning",
+            "institution": "Malmö University, Malmö",
+            "dates": "2023 - 2024",
+            "details": null
+          },
+          {
+            "title": "Course 7.5 ECTS | Leadership",
+            "institution": "Halmstad University, Halmstad",
+            "dates": "2023",
+            "details": null
+          },
+          {
+            "title": "Group Commander Training | Leadership",
+            "institution": "Swedish Armed Forces, Halmstad",
+            "dates": "2022 - 2023",
+            "details": null
+          },
+          {
+            "title": "Basic Military Training",
+            "institution": "Swedish Armed Forces, Halmstad",
+            "dates": "2022 - 2023",
+            "details": null
+          },
+          {
+            "title": "Upper Secondary Diploma | Social Science Programme",
+            "institution": "Drottning Blankas Gymnasieskola, Kristianstad",
+            "dates": "2019 - 2022",
+            "details": null
+          }
+        ],
+        "lang_title": "Languages",
+        "languages": [
+          { "name": "Swedish", "level": "Native" },
+          { "name": "English", "level": "Advanced" }
+        ]
+      },
+      "contact_section": {
+        "title": "Contact Me",
+        "intro": "Interested in discussing opportunities or just saying hello? Feel free to reach out!",
+        "email_label": "Email:",
+        "email_address": "samuel.b.liljenberg@gmail.com",
+        "phone_label": "Phone:",
+        "phone_number": "+46 70 852 62 32",
+        "linkedin_label": "LinkedIn:",
+        "linkedin_link_text": "View Profile",
+        "linkedin_url": "https://www.linkedin.com/in/samuel-berg-liljenberg-079864325/",
+        "location_label": "Location:",
+        "location_text": "Kristianstad, Sweden"
+      },
+      "footer_section": {
+        "rights": "All rights reserved.",
+        "name": "Samuel B Liljenberg"
+      }
+    }
+  }
 }
